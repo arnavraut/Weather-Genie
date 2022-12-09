@@ -5,6 +5,7 @@ SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 sys.path.append(os.path.dirname(SCRIPT_DIR))
 
 import tkinter as tk
+import threading
 from view.home_layout import HomeLayout
 from view.load_screen import LoadScreen
 from model.scraper import Scraper
@@ -28,13 +29,18 @@ class AppController:
         self.location_data = self.view.location_content.get()
         self.date_data = self.view.date_content.get()
         self.load = LoadScreen()
-        print('testhere')
+        threading.Thread(target=self.data_control_help).start()
+        self.load.root.mainloop()
+
+    def data_control_help(self):
         try:
             data_ctr = DataController(self.location_data,
             self.date_data)
             data_ctr.scrape_and_predict()
             #can raise exception in this method if date or location
             #are invalid
+            self.view.root.destroy()
+            self.load.root.destroy()
         except ValueError as e:
             self.load.root.destroy()
             self.error_label['text'] = 'Error: ' +e.__str__()
@@ -43,6 +49,7 @@ class AppController:
             self.load.root.destroy()
             self.error_label['text'] = 'Error: Invalid location'
             self.error_label.pack()
+        
 
         
 

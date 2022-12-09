@@ -41,7 +41,7 @@ class Scraper:
             #for dates between one and two years in the future
             years_ago += 1
 
-        for i in range(10):
+        for i in range(4):
             self.url_scrape(years_ago)
             years_ago -= 1
 
