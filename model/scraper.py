@@ -35,7 +35,7 @@ class Scraper:
 
         #check date is in range (within next two years)
         if self.date < today or self.date > two_years:
-            raise ValueError('Date must be in within the next two years.')
+            raise ValueError('Date must be within the next two years.')
 
         #remove whitespace for url
         self.location = self.location.replace(' ','')
