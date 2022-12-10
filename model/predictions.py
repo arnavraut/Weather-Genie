@@ -33,11 +33,16 @@ class Predictions:
         self.pred_dict['windspeed'] = self.make_list(
             self.scraper.windspeed)
 
+        print(self.pred_dict)
+
+
 
     def make_list(self, lst):
+        """Makes three elment data list for each weather category"""
         return_list = []
-        return_list.append(min(lst))
-        return_list.append(max(lst))
-        return_list.append(sum(lst)/len(lst))
+        return_list.append(min(lst)) #minimum value
+        return_list.append(max(lst)) #maximum value
+        mean = sum(lst)/len(lst)
+        return_list.append(round(mean, 2)) #mean value
         return return_list
 

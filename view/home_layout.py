@@ -1,9 +1,3 @@
-import sys
-import os
-
-SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
-sys.path.append(os.path.dirname(SCRIPT_DIR))
-
 import tkinter as tk
 from view.basic_layout import BasicLayout
 from tkmacosx import Button
@@ -14,13 +8,18 @@ class HomeLayout(BasicLayout):
 
     def __init__(self):
         super().__init__()
+        self.construct()
+    
+    def construct(self):
+        """Construct the HomeLayout, called from constructor so 
+        constructor can remain simple"""
 
-        self.root.title('Weather Genie')
-
+        #ask for location
         self.location_label = tk.Label(self.root, text='Enter Location', 
         font=('Times New Roman',14))
         self.location_label.pack(pady=10)
 
+        #location entry
         self.location_entry = tk.Entry()
         self.location_entry.pack()
 
@@ -56,6 +55,9 @@ class HomeLayout(BasicLayout):
 
     
     def enter_pressed(self):
+        """Handles when Enter button is pressed, calls 
+        same named method in a control class to keep
+        architecture consistent"""
         control.app_control.AppController().enter_pressed()
     
     
