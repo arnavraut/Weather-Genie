@@ -1,7 +1,3 @@
-import tkinter as tk
-from tkmacosx import Button
-from view.home_layout import HomeLayout
-from view.load_screen import LoadScreen
 from model.scraper import Scraper
 from model.predictions import Predictions
 

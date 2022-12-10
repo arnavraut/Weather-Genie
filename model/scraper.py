@@ -1,6 +1,4 @@
-from bs4 import BeautifulSoup
-import requests
-from datetime import date, datetime, timedelta
+from datetime import datetime
 from dateutil.relativedelta import relativedelta
 import urllib.request, json
 
@@ -53,6 +51,7 @@ class Scraper:
             years_ago -= 1
 
         #print the lists made by url_scrape
+        print('\n')
         print(f'Temperature minimum (F): {self.tempmin}')
         print(f'Temperature maximum (F): {self.tempmax}')
         print(f'Temperature mean (F): {self.temp}')
@@ -62,6 +61,7 @@ class Scraper:
         print(f'Precipitation (inches): {self.precip}')
         print(f'Average snow depth on ground (inches): {self.snowdepth}')
         print(f'Windspeed (mph): {self.windspeed}')
+        print()
 
 
     def url_scrape(self, years_ago):
