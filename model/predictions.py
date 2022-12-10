@@ -1,18 +1,20 @@
 from model.scraper import Scraper
 
 class Predictions:
+    """This class gets a Scraper object and uses it to make 
+    weather calculations which are eventually displayed to user
+    """
 
     def __init__(self, scraper: Scraper):
+        """Initialize scraper field"""
         self.scraper = scraper
 
     def make_predictions(self):
         """Use Scraper object to make weather predictions.
-        The predictions are made by a list of each weather category
-        with the first element being the minimum value in the range,
-        second element being the maximum, and third element the mean
-        
-        These three data points are later outputted to the user"""
+        """
 
+        #dictionary which organizes all weather category
+        #calculations, uses lists in Scraper object
         self.pred_dict = {}
         self.pred_dict['temp'] = self.make_list(
             self.scraper.temp)
@@ -33,12 +35,12 @@ class Predictions:
         self.pred_dict['windspeed'] = self.make_list(
             self.scraper.windspeed)
 
-        print(self.pred_dict)
-
-
-
     def make_list(self, lst):
-        """Makes three elment data list for each weather category"""
+        """Makes three element data list for each weather category
+            [0]: min value  [1]: max value  [2]: mean value
+        
+        :param lst: a list"""
+        
         return_list = []
         return_list.append(min(lst)) #minimum value
         return_list.append(max(lst)) #maximum value

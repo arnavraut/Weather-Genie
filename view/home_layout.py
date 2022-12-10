@@ -1,12 +1,12 @@
 import tkinter as tk
 from view.basic_layout import BasicLayout
 from tkmacosx import Button
-import control
 
 class HomeLayout(BasicLayout):
     """Home layout which user first encounters"""
 
     def __init__(self):
+        """Construct HomeLayout"""
         super().__init__()
         self.construct()
     
@@ -30,6 +30,7 @@ class HomeLayout(BasicLayout):
         self.spacer_label = tk.Label(self.root, text='')
         self.spacer_label.pack(pady=40)
 
+        #ask for date
         self.date_label = tk.Label(self.root, 
         text='Enter Future Date (up to two years)', 
         font=('Times New Roman',14))
@@ -39,25 +40,17 @@ class HomeLayout(BasicLayout):
         self.date_label.pack()
         self.date_label_two.pack()
 
+        #date entry
         self.date_entry = tk.Entry()
         self.date_content = tk.StringVar()
         self.date_content.set('')
         self.date_entry['textvariable'] = self.date_content
         self.date_entry.pack(pady=10)
 
+        #enter button
         self.enter_button = Button(
             text= 'Enter Data',
             font=('Times',15),
-            command= lambda:self.enter_pressed()
         )
         self.enter_button['fg'] = 'black'
         self.enter_button.pack()
-
-    
-    def enter_pressed(self):
-        """Handles when Enter button is pressed, calls 
-        same named method in a control class to keep
-        architecture consistent"""
-        control.app_control.AppController().enter_pressed()
-    
-    

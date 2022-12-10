@@ -5,9 +5,12 @@ from dateutil.relativedelta import relativedelta
 import urllib.request, json
 
 class Scraper:
-    """will create the lists of weather data"""
+    """This class will create the lists of weather data
+    from the online database"""
 
     def __init__(self, location, date):
+        """Initialize location and date variables to make
+        the object, as well as create the category lists"""
         self.location = location
         self.date = date
         self.tempmin = []
@@ -21,15 +24,18 @@ class Scraper:
         self.windspeed = []
 
     def data_search(self):
+        """Scrape online database and create lists"""
+
+        #check date formatting
         try:
             self.date = datetime.strptime(self.date, '%m-%d-%Y').date()
         except:
             raise ValueError('Date not correctly formatted.')
-        print(self.date)
+        
         today = datetime.now().date()
         two_years = today + relativedelta(years=2)
 
-        #check date is in given range
+        #check date is in range (within next two years)
         if self.date < today or self.date > two_years:
             raise ValueError('Date must be in within the next two years.')
 
@@ -41,7 +47,8 @@ class Scraper:
             #for dates between one and two years in the future
             years_ago += 1
 
-        for i in range(4):
+        #scrape past ten years of weather data
+        for i in range(10):
             self.url_scrape(years_ago)
             years_ago -= 1
 
@@ -59,7 +66,9 @@ class Scraper:
 
     def url_scrape(self, years_ago):
         """used by data_search to scrape multiple years of 
-        weather data and generate required lists"""
+        weather data and generate required lists
+        
+        :param years_ago: an integer"""
 
         date_to_scrape = self.date - relativedelta(years=years_ago)
         date_to_scrape = date_to_scrape.strftime('%Y-%m-%d')
@@ -67,10 +76,12 @@ class Scraper:
         #API key
         my_key = 'WYTMT69D7EFPWQEDW35UFHCD2'
 
+        #uses "Visual Crossing" weather database
         url = ('https://weather.visualcrossing.com/Visual'
         +'CrossingWebServices/rest/services/timeline/'
         +f'{self.location}/{date_to_scrape}?key={my_key}')
 
+        #database given in JSON format
         result = urllib.request.urlopen(url)
         data = json.loads(result.read())
 
