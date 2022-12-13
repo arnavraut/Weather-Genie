@@ -1,9 +1,3 @@
-import sys
-import os
-
-SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
-sys.path.append(os.path.dirname(SCRIPT_DIR))
-
 import tkinter as tk
 import threading
 from view.home_layout import HomeLayout
